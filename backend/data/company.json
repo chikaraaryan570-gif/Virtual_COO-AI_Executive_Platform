@@ -1,0 +1,25 @@
+{
+    "company": "TechNova Pvt Ltd",
+
+    "employees": 120,
+
+    "active_projects": 8,
+
+    "completed_projects": 35,
+
+    "monthly_revenue": 850000,
+
+    "monthly_expenses": 520000,
+
+    "profit": 330000,
+
+    "customer_satisfaction": 91,
+
+    "sales_growth": 16,
+
+    "employee_satisfaction": 88,
+
+    "pending_tasks": 24,
+
+    "completed_tasks": 146
+}
