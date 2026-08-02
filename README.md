@@ -53,7 +53,6 @@ Virtual_COO-AI_Executive_Platform/
 │
 ├── backend
 ├── frontend
-├── screenshots
 └── README.md
 ```
 
