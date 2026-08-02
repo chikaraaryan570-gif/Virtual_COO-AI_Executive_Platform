@@ -3,6 +3,7 @@ import { DollarSign, TrendingUp, TrendingDown, Wallet } from "lucide-react";
 import KPICard from "../components/KPICard";
 import RevenueChart from "../components/RevenueChart";
 import { getDashboardData } from "../services/api";
+import { motion } from "framer-motion";
 
 export default function Finance() {
   const [data, setData] = useState(null);
@@ -20,10 +21,17 @@ export default function Finance() {
   }, []);
 
   return (
-    <div className="space-y-8 p-6">
+    <motion.div 
+      initial={{ opacity: 0, y: 15 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      className="space-y-8 p-6"
+    >
       <div>
-        <h1 className="text-4xl font-bold text-white">Finance</h1>
-        <p className="text-slate-400">Financial overview and revenue tracking</p>
+        <h1 className="text-4xl font-black text-white tracking-tight drop-shadow-[0_2px_10px_rgba(255,255,255,0.15)]">
+          Finance
+        </h1>
+        <p className="text-slate-400 text-sm mt-1">Financial overview and revenue tracking</p>
       </div>
 
       {data ? (
@@ -55,13 +63,13 @@ export default function Finance() {
             />
           </div>
 
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6">
+          <div>
             <RevenueChart />
           </div>
         </>
       ) : (
         <div className="text-white">Loading financial data...</div>
       )}
-    </div>
+    </motion.div>
   );
 }

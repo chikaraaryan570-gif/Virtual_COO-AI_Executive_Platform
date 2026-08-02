@@ -1,4 +1,5 @@
 import { FileText, Download, Filter } from "lucide-react";
+import { motion } from "framer-motion";
 
 export default function Reports() {
   const reports = [
@@ -10,50 +11,57 @@ export default function Reports() {
   ];
 
   return (
-    <div className="space-y-8 p-6">
+    <motion.div 
+      initial={{ opacity: 0, y: 15 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      className="space-y-8 p-6"
+    >
       <div className="flex justify-between items-end">
         <div>
-          <h1 className="text-4xl font-bold text-white">Reports</h1>
-          <p className="text-slate-400">View and download business reports</p>
+          <h1 className="text-4xl font-black text-white tracking-tight drop-shadow-[0_2px_10px_rgba(255,255,255,0.15)]">
+            Reports
+          </h1>
+          <p className="text-slate-400 text-sm mt-1">View and download business reports</p>
         </div>
-        <button className="flex items-center gap-2 bg-slate-800 hover:bg-slate-700 text-white px-4 py-2 rounded-lg transition-colors border border-slate-700">
-          <Filter size={18} />
+        <button className="flex items-center gap-2 bg-slate-950/40 hover:bg-white/5 text-white px-4 py-2.5 rounded-lg border border-white/5 transition-all duration-300 font-semibold text-xs tracking-wider uppercase">
+          <Filter size={16} className="text-cyan-400" />
           <span>Filter</span>
         </button>
       </div>
 
-      <div className="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden">
+      <div className="glass-panel border border-white/5 bg-white/[0.01] rounded-2xl overflow-hidden">
         <table className="w-full text-left text-sm text-slate-300">
-          <thead className="bg-slate-800 text-slate-400">
+          <thead className="bg-slate-950/40 text-slate-400 border-b border-white/5">
             <tr>
-              <th scope="col" className="px-6 py-4 font-medium">Report Name</th>
-              <th scope="col" className="px-6 py-4 font-medium">Department</th>
-              <th scope="col" className="px-6 py-4 font-medium">Date</th>
-              <th scope="col" className="px-6 py-4 font-medium">Size</th>
-              <th scope="col" className="px-6 py-4 font-medium text-right">Action</th>
+              <th scope="col" className="px-6 py-4 font-semibold uppercase text-xs tracking-wider">Report Name</th>
+              <th scope="col" className="px-6 py-4 font-semibold uppercase text-xs tracking-wider">Department</th>
+              <th scope="col" className="px-6 py-4 font-semibold uppercase text-xs tracking-wider">Date</th>
+              <th scope="col" className="px-6 py-4 font-semibold uppercase text-xs tracking-wider">Size</th>
+              <th scope="col" className="px-6 py-4 font-semibold uppercase text-xs tracking-wider text-right">Action</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="divide-y divide-white/5">
             {reports.map((report) => (
-              <tr key={report.id} className="border-t border-slate-800 hover:bg-slate-800/50 transition-colors">
+              <tr key={report.id} className="hover:bg-white/[0.02] transition-colors duration-200">
                 <td className="px-6 py-4">
                   <div className="flex items-center gap-3">
-                    <div className="bg-blue-500/20 p-2 rounded-lg text-blue-400">
-                      <FileText size={20} />
+                    <div className="bg-cyan-500/10 p-2 rounded-lg text-cyan-400 border border-cyan-500/25">
+                      <FileText size={18} />
                     </div>
-                    <span className="font-medium text-white">{report.title}</span>
+                    <span className="font-semibold text-white">{report.title}</span>
                   </div>
                 </td>
                 <td className="px-6 py-4">
-                  <span className="bg-slate-800 px-3 py-1 rounded-full text-xs border border-slate-700">
+                  <span className="bg-slate-950/60 px-3 py-1 rounded-full text-xs font-semibold border border-white/5 text-slate-300">
                     {report.type}
                   </span>
                 </td>
-                <td className="px-6 py-4">{report.date}</td>
-                <td className="px-6 py-4">{report.size}</td>
+                <td className="px-6 py-4 text-xs font-semibold text-slate-400">{report.date}</td>
+                <td className="px-6 py-4 text-xs font-semibold text-slate-400">{report.size}</td>
                 <td className="px-6 py-4 text-right">
-                  <button className="text-slate-400 hover:text-white transition-colors p-2 hover:bg-slate-700 rounded-lg">
-                    <Download size={20} />
+                  <button className="text-slate-400 hover:text-white transition-colors p-2 hover:bg-white/5 rounded-lg">
+                    <Download size={18} className="hover:text-cyan-400 transition-colors" />
                   </button>
                 </td>
               </tr>
@@ -61,6 +69,6 @@ export default function Reports() {
           </tbody>
         </table>
       </div>
-    </div>
+    </motion.div>
   );
 }

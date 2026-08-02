@@ -63,12 +63,13 @@ const menu = [
 
 export default function Sidebar() {
   return (
-    <aside className="w-72 bg-slate-900 border-r border-slate-800 flex flex-col">
+    <aside className="w-72 glass-panel my-4 ml-4 rounded-2xl flex flex-col overflow-hidden relative z-20 border border-white/10">
+      {/* Subtle top neon ambient glow */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-[1px] bg-gradient-to-r from-transparent via-[#00f2fe] to-transparent shadow-[0_0_10px_#00f2fe]" />
 
       <Logo />
 
-      <nav className="flex-1 p-4 space-y-2">
-
+      <nav className="flex-1 p-4 space-y-2 overflow-y-auto">
         {menu.map((item) => {
           const Icon = item.icon;
 
@@ -78,9 +79,9 @@ export default function Sidebar() {
               to={item.path}
               end={item.path === "/"}
               className={({ isActive }) =>
-                `flex items-center gap-4 rounded-xl px-4 py-3 transition-all duration-200 ${isActive
-                  ? "bg-blue-600 text-white shadow-lg"
-                  : "text-slate-400 hover:bg-slate-800 hover:text-white"
+                `flex items-center gap-4 rounded-xl px-4 py-3 transition-all duration-300 hover:scale-[1.02] ${isActive
+                  ? "active-glow font-semibold"
+                  : "text-slate-400 hover:bg-white/5 hover:text-white"
                 }`
               }
             >
@@ -92,31 +93,22 @@ export default function Sidebar() {
             </NavLink>
           );
         })}
-
       </nav>
 
-      <div className="border-t border-slate-800 p-5">
-
-        <div className="rounded-xl bg-slate-800 p-4">
-
-          <p className="text-xs text-slate-500">
+      <div className="border-t border-white/5 p-4">
+        <div className="rounded-xl bg-white/5 border border-white/5 p-3 backdrop-blur-md">
+          <p className="text-[10px] uppercase tracking-wider text-slate-500 font-semibold">
             System Status
           </p>
 
           <div className="mt-2 flex items-center gap-2">
-
-            <div className="h-3 w-3 rounded-full bg-green-500 animate-pulse"></div>
-
-            <span className="text-sm text-green-400">
+            <div className="h-2.5 w-2.5 rounded-full bg-emerald-500 shadow-[0_0_8px_#10b981] animate-pulse"></div>
+            <span className="text-xs font-medium text-emerald-400">
               All Systems Operational
             </span>
-
           </div>
-
         </div>
-
       </div>
-
     </aside>
   );
 }

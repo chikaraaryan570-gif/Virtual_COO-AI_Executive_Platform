@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { TrendingUp, Users, Target, Activity } from "lucide-react";
 import KPICard from "../components/KPICard";
 import { getDashboardData } from "../services/api";
+import { motion } from "framer-motion";
 
 export default function Sales() {
   const [data, setData] = useState(null);
@@ -19,10 +20,17 @@ export default function Sales() {
   }, []);
 
   return (
-    <div className="space-y-8 p-6">
+    <motion.div 
+      initial={{ opacity: 0, y: 15 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      className="space-y-8 p-6"
+    >
       <div>
-        <h1 className="text-4xl font-bold text-white">Sales</h1>
-        <p className="text-slate-400">Sales performance and customer metrics</p>
+        <h1 className="text-4xl font-black text-white tracking-tight drop-shadow-[0_2px_10px_rgba(255,255,255,0.15)]">
+          Sales
+        </h1>
+        <p className="text-slate-400 text-sm mt-1">Sales performance and customer metrics</p>
       </div>
 
       {data ? (
@@ -54,42 +62,42 @@ export default function Sales() {
             />
           </div>
 
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6">
-            <h2 className="text-xl font-semibold text-white mb-6">Recent Deals Pipeline</h2>
+          <div className="glass-panel border border-white/5 bg-white/[0.01] rounded-2xl p-6">
+            <h2 className="text-xl font-bold text-white mb-6 tracking-tight">Recent Deals Pipeline</h2>
             <div className="overflow-x-auto">
               <table className="w-full text-left text-sm text-slate-300">
-                <thead className="text-xs uppercase bg-slate-800 text-slate-400">
+                <thead className="text-xs uppercase bg-slate-950/40 text-slate-400 border-b border-white/5">
                   <tr>
-                    <th scope="col" className="px-6 py-3 rounded-l-lg">Client</th>
-                    <th scope="col" className="px-6 py-3">Value</th>
-                    <th scope="col" className="px-6 py-3">Stage</th>
-                    <th scope="col" className="px-6 py-3 rounded-r-lg">Probability</th>
+                    <th scope="col" className="px-6 py-4 rounded-l-lg">Client</th>
+                    <th scope="col" className="px-6 py-4">Value</th>
+                    <th scope="col" className="px-6 py-4">Stage</th>
+                    <th scope="col" className="px-6 py-4 rounded-r-lg">Probability</th>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr className="border-b border-slate-800 hover:bg-slate-800/50">
-                    <td className="px-6 py-4 font-medium text-white">Acme Corp</td>
-                    <td className="px-6 py-4">$45,000</td>
-                    <td className="px-6 py-4"><span className="px-2 py-1 bg-blue-500/20 text-blue-400 rounded-md">Negotiation</span></td>
-                    <td className="px-6 py-4">80%</td>
+                <tbody className="divide-y divide-white/5">
+                  <tr className="hover:bg-white/[0.02] transition-colors duration-200">
+                    <td className="px-6 py-4 font-semibold text-white">Acme Corp</td>
+                    <td className="px-6 py-4 font-medium">$45,000</td>
+                    <td className="px-6 py-4"><span className="px-2 py-1 bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 rounded-md text-xs font-semibold">Negotiation</span></td>
+                    <td className="px-6 py-4 font-semibold text-cyan-400">80%</td>
                   </tr>
-                  <tr className="border-b border-slate-800 hover:bg-slate-800/50">
-                    <td className="px-6 py-4 font-medium text-white">Globex Inc</td>
-                    <td className="px-6 py-4">$12,500</td>
-                    <td className="px-6 py-4"><span className="px-2 py-1 bg-yellow-500/20 text-yellow-400 rounded-md">Proposal</span></td>
-                    <td className="px-6 py-4">40%</td>
+                  <tr className="hover:bg-white/[0.02] transition-colors duration-200">
+                    <td className="px-6 py-4 font-semibold text-white">Globex Inc</td>
+                    <td className="px-6 py-4 font-medium">$12,500</td>
+                    <td className="px-6 py-4"><span className="px-2 py-1 bg-amber-500/10 text-amber-400 border border-amber-500/20 rounded-md text-xs font-semibold">Proposal</span></td>
+                    <td className="px-6 py-4 font-semibold text-amber-400">40%</td>
                   </tr>
-                  <tr className="border-b border-slate-800 hover:bg-slate-800/50">
-                    <td className="px-6 py-4 font-medium text-white">Soylent Corp</td>
-                    <td className="px-6 py-4">$89,000</td>
-                    <td className="px-6 py-4"><span className="px-2 py-1 bg-green-500/20 text-green-400 rounded-md">Closed Won</span></td>
-                    <td className="px-6 py-4">100%</td>
+                  <tr className="hover:bg-white/[0.02] transition-colors duration-200">
+                    <td className="px-6 py-4 font-semibold text-white">Soylent Corp</td>
+                    <td className="px-6 py-4 font-medium">$89,000</td>
+                    <td className="px-6 py-4"><span className="px-2 py-1 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 rounded-md text-xs font-semibold">Closed Won</span></td>
+                    <td className="px-6 py-4 font-semibold text-emerald-400">100%</td>
                   </tr>
-                  <tr className="hover:bg-slate-800/50">
-                    <td className="px-6 py-4 font-medium text-white">Initech</td>
-                    <td className="px-6 py-4">$3,200</td>
-                    <td className="px-6 py-4"><span className="px-2 py-1 bg-purple-500/20 text-purple-400 rounded-md">Discovery</span></td>
-                    <td className="px-6 py-4">20%</td>
+                  <tr className="hover:bg-white/[0.02] transition-colors duration-200">
+                    <td className="px-6 py-4 font-semibold text-white">Initech</td>
+                    <td className="px-6 py-4 font-medium">$3,200</td>
+                    <td className="px-6 py-4"><span className="px-2 py-1 bg-purple-500/10 text-purple-400 border border-purple-500/20 rounded-md text-xs font-semibold">Discovery</span></td>
+                    <td className="px-6 py-4 font-semibold text-purple-400">20%</td>
                   </tr>
                 </tbody>
               </table>
@@ -99,6 +107,6 @@ export default function Sales() {
       ) : (
         <div className="text-white">Loading Sales data...</div>
       )}
-    </div>
+    </motion.div>
   );
 }

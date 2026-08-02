@@ -3,6 +3,7 @@ import MessageBubble from "../components/chat/MessageBubble";
 import TypingIndicator from "../components/chat/TypingIndicator";
 import ChatInput from "../components/chat/ChatInput";
 import { sendMessage } from "../services/ChatApi";
+import { motion } from "framer-motion";
 
 export default function Assistant() {
     const [typing, setTyping] = useState(false);
@@ -77,30 +78,39 @@ export default function Assistant() {
     };
 
     return (
-        <div className="flex flex-col h-full bg-slate-950">
+        <motion.div 
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="flex flex-col h-full bg-transparent"
+        >
+            <div className="glass-panel border border-white/5 bg-white/[0.01] rounded-2xl flex flex-col flex-1 overflow-hidden">
+                {/* Header */}
+                <div className="border-b border-white/5 p-6 bg-slate-950/20">
+                    <h1 className="text-3xl font-black text-white flex items-center gap-3 drop-shadow-[0_2px_8px_rgba(6,182,212,0.3)]">
+                        <span>🤖</span>
+                        <span>AI Executive Assistant</span>
+                    </h1>
 
-            {/* Header */}
-            <div className="border-b border-slate-800 p-6">
-                <h1 className="text-3xl font-bold text-white">
-                    🤖 AI Executive Assistant
-                </h1>
+                    <p className="text-slate-400 mt-2 text-sm">
+                        Your AI-powered Virtual COO for cosmic business insights.
+                    </p>
+                </div>
 
-                <p className="text-slate-400 mt-2">
-                    Your AI-powered Virtual COO for business insights.
-                </p>
+                {/* Chat Area */}
+                <div className="flex-1 overflow-y-auto p-6 space-y-4 scrollbar-thin">
+                    {messages.map((message, index) => (
+                        <MessageBubble key={index} message={message} />
+                    ))}
+
+                    {typing && <TypingIndicator />}
+                </div>
+
+                {/* Chat Input */}
+                <div className="p-4 bg-slate-950/20 border-t border-white/5">
+                    <ChatInput onSend={handleSend} />
+                </div>
             </div>
-
-            {/* Chat Area */}
-            <div className="flex-1 overflow-y-auto p-6">
-                {messages.map((message, index) => (
-                    <MessageBubble key={index} message={message} />
-                ))}
-
-                {typing && <TypingIndicator />}
-            </div>
-
-            {/* Chat Input */}
-            <ChatInput onSend={handleSend} />
-        </div>
+        </motion.div>
     );
 }
