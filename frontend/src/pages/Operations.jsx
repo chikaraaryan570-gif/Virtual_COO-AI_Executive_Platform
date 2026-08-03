@@ -38,6 +38,7 @@ export default function Operations() {
     { name: "completed_projects", label: "Completed Projects", type: "number" },
     { name: "avg_issue_resolution", label: "Avg Issue Resolution (hrs)", type: "number" },
     { name: "critical_alerts", label: "Critical Alerts", type: "number" },
+    { name: "active_operations", label: "Active Operations (One per line)", type: "textarea", placeholder: "e.g. Q3 Server Migration\nNew CRM Integration\nOffice Expansion" },
   ];
 
   return (
@@ -93,9 +94,19 @@ export default function Operations() {
 
           <div className="glass-panel border border-white/5 bg-white/[0.01] rounded-2xl p-6">
             <h2 className="text-xl font-bold text-white mb-6 tracking-tight">Active Operations</h2>
-            <div className="text-slate-400 text-sm py-4 text-center">
-              No active operations or tasks.
-            </div>
+            {data.active_operations && data.active_operations.trim() !== "" ? (
+              <div className="space-y-3">
+                {data.active_operations.split('\n').filter(item => item.trim() !== "").map((item, idx) => (
+                  <div key={idx} className="p-4 bg-slate-900/50 rounded-xl border border-white/10 flex items-center justify-between">
+                    <span className="text-white font-medium">{item}</span>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="text-slate-400 text-sm py-4 text-center">
+                No active operations or tasks.
+              </div>
+            )}
           </div>
         </>
       ) : (

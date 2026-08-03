@@ -38,6 +38,7 @@ export default function HR() {
     { name: "employee_satisfaction", label: "Employee Satisfaction", type: "number" },
     { name: "active_roles", label: "Active Roles", type: "number" },
     { name: "open_positions", label: "Open Positions", type: "number" },
+    { name: "employee_distribution", label: "Employee Distribution (One per line)", type: "textarea", placeholder: "e.g. Engineering: 25\nSales: 15\nMarketing: 10" },
   ];
 
   return (
@@ -93,9 +94,19 @@ export default function HR() {
 
           <div className="glass-panel border border-white/5 bg-white/[0.01] rounded-2xl p-6">
             <h2 className="text-xl font-bold text-white mb-6 tracking-tight">Employee Distribution</h2>
-            <div className="text-slate-400 text-sm py-4 text-center">
-              No detailed employee distribution data available.
-            </div>
+            {data.employee_distribution && data.employee_distribution.trim() !== "" ? (
+              <div className="space-y-3">
+                {data.employee_distribution.split('\n').filter(item => item.trim() !== "").map((item, idx) => (
+                  <div key={idx} className="p-4 bg-slate-900/50 rounded-xl border border-white/10 flex items-center justify-between">
+                    <span className="text-white font-medium">{item}</span>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="text-slate-400 text-sm py-4 text-center">
+                No detailed employee distribution data available.
+              </div>
+            )}
           </div>
         </>
       ) : (

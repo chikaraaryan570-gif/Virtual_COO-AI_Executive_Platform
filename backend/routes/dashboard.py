@@ -1,6 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 from routes.auth import get_current_user
 from services.firebase_service import db
+from services.generation_service import generate_missing_lists
 
 router = APIRouter(prefix="/dashboard", tags=["Dashboard"])
 
@@ -16,8 +17,11 @@ def company(user = Depends(get_current_user)):
 @router.post("/company/update")
 def update_company(data: dict, user = Depends(get_current_user)):
     try:
+        # Auto-generate missing lists if KPIs are provided
+        augmented_data = generate_missing_lists(data)
+        
         # Filter out None values
-        update_data = {k: v for k, v in data.items() if v is not None}
+        update_data = {k: v for k, v in augmented_data.items() if v is not None}
         if not update_data:
             return {"status": "success", "message": "No data to update"}
         

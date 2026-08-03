@@ -10,7 +10,7 @@ async def run_chat(message: str, uid: str):
         company = {}
 
     prompt = f"""
-Company Name: {company.get('company_name', 'Unknown')}
+Company Name: {company.get('companyName', 'Unknown')}
 Employees: {company.get('employees', 0)}
 Revenue: {company.get('revenue', 0)}
 Expenses: {company.get('expenses', 0)}

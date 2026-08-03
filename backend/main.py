@@ -10,6 +10,7 @@ from routes.chat import router as chat_router
 from routes.health_score import router as health_router
 from routes.company import router as company_router
 from routes.auth import router as auth_router
+from routes.reports import router as reports_router
 
 @contextlib.asynccontextmanager
 async def lifespan(app: FastAPI):

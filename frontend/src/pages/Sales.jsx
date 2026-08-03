@@ -38,6 +38,7 @@ export default function Sales() {
     { name: "customer_satisfaction", label: "Customer Satisfaction", type: "number" },
     { name: "conversion_rate", label: "Conversion Rate (%)", type: "number" },
     { name: "active_deals", label: "Active Deals", type: "number" },
+    { name: "recent_deals", label: "Recent Deals (One per line)", type: "textarea", placeholder: "e.g. Enterprise License - $50k\nCloud Migration - $120k" },
   ];
 
   return (
@@ -93,9 +94,19 @@ export default function Sales() {
 
           <div className="glass-panel border border-white/5 bg-white/[0.01] rounded-2xl p-6">
             <h2 className="text-xl font-bold text-white mb-6 tracking-tight">Recent Deals Pipeline</h2>
-            <div className="text-slate-400 text-sm py-4 text-center">
-              No active deals found.
-            </div>
+            {data.recent_deals && data.recent_deals.trim() !== "" ? (
+              <div className="space-y-3">
+                {data.recent_deals.split('\n').filter(item => item.trim() !== "").map((item, idx) => (
+                  <div key={idx} className="p-4 bg-slate-900/50 rounded-xl border border-white/10 flex items-center justify-between">
+                    <span className="text-white font-medium">{item}</span>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="text-slate-400 text-sm py-4 text-center">
+                No active deals found.
+              </div>
+            )}
           </div>
         </>
       ) : (
