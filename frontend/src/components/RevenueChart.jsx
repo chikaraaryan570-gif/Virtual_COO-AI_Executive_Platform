@@ -8,17 +8,17 @@ import {
   CartesianGrid,
 } from "recharts";
 
-const data = [
-  { month: "Jan", revenue: 120000 },
-  { month: "Feb", revenue: 180000 },
-  { month: "Mar", revenue: 250000 },
-  { month: "Apr", revenue: 320000 },
-  { month: "May", revenue: 450000 },
-  { month: "Jun", revenue: 620000 },
-  { month: "Jul", revenue: 850000 },
-];
+export default function RevenueChart({ data: dashboardData }) {
+  const chartData = [
+    { month: "Jan", revenue: dashboardData?.revenue_jan || 0 },
+    { month: "Feb", revenue: dashboardData?.revenue_feb || 0 },
+    { month: "Mar", revenue: dashboardData?.revenue_mar || 0 },
+    { month: "Apr", revenue: dashboardData?.revenue_apr || 0 },
+    { month: "May", revenue: dashboardData?.revenue_may || 0 },
+    { month: "Jun", revenue: dashboardData?.revenue_jun || 0 },
+    { month: "Jul", revenue: dashboardData?.revenue_jul || 0 },
+  ];
 
-export default function RevenueChart() {
   return (
     <div className="glass-panel border border-white/5 bg-white/[0.01] rounded-2xl p-6 h-[400px] relative overflow-hidden">
       <h2 className="text-white text-xl font-bold tracking-tight mb-6">
@@ -26,7 +26,7 @@ export default function RevenueChart() {
       </h2>
 
       <ResponsiveContainer width="100%" height="85%">
-        <LineChart data={data}>
+        <LineChart data={chartData}>
           <defs>
             <linearGradient id="revenueGlow" x1="0" y1="0" x2="1" y2="0">
               <stop offset="0%" stopColor="#00f2fe" />
@@ -47,7 +47,7 @@ export default function RevenueChart() {
             stroke="#64748b"
             fontSize={12}
             tickLine={false}
-            tickFormatter={(v) => `$${v / 1000}k`}
+            tickFormatter={(v) => `$${(v / 1000).toFixed(1)}k`}
           />
 
           <Tooltip 

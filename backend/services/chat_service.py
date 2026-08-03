@@ -1,25 +1,28 @@
 from agents.supervisor import supervisor
-from services.data_service import load_company_data
+from services.firebase_service import db
 
-async def run_chat(message: str):
-
-    company = load_company_data()
+async def run_chat(message: str, uid: str):
+    doc = db.collection("companies").document(uid).get()
+    
+    if doc.exists:
+        company = doc.to_dict()
+    else:
+        company = {}
 
     prompt = f"""
-Company Name: {company['company_name']}
-Employees: {company['employees']}
-Revenue: {company['revenue']}
-Expenses: {company['expenses']}
-Profit: {company['profit']}
-Sales Growth: {company['sales_growth']}
-Customer Satisfaction: {company['customer_satisfaction']}
-Employee Satisfaction: {company['employee_satisfaction']}
-Pending Tasks: {company['pending_tasks']}
+Company Name: {company.get('company_name', 'Unknown')}
+Employees: {company.get('employees', 0)}
+Revenue: {company.get('revenue', 0)}
+Expenses: {company.get('expenses', 0)}
+Profit: {company.get('profit', 0)}
+Sales Growth: {company.get('sales_growth', 0)}
+Customer Satisfaction: {company.get('customer_satisfaction', 0)}
+Employee Satisfaction: {company.get('employee_satisfaction', 0)}
+Pending Tasks: {company.get('pending_tasks', 0)}
 
 User Question:
 {message}
 """
 
     agent = supervisor.route(message)
-
     return agent.run(prompt)

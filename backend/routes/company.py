@@ -1,11 +1,12 @@
-from fastapi import APIRouter
-
-from services.data_service import load_company_data
+from fastapi import APIRouter, Depends
+from services.firebase_service import db
+from routes.auth import get_current_user
 
 router = APIRouter()
 
 @router.get("/company")
-
-def company():
-
-    return load_company_data()
+def company(user = Depends(get_current_user)):
+    doc = db.collection("companies").document(user["uid"]).get()
+    if not doc.exists:
+        return {}
+    return doc.to_dict()

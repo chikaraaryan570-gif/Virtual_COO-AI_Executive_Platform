@@ -1,9 +1,11 @@
 import { useState, useRef, useEffect } from "react";
-import { Bell, Search, UserCircle, X } from "lucide-react";
+import { Bell, Search, UserCircle, X, LogOut } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 export default function Navbar() {
   const navigate = useNavigate();
+  const { logout } = useAuth();
   const [showNotifications, setShowNotifications] = useState(false);
   const [hasNewNotifications, setHasNewNotifications] = useState(true);
   const [showSearch, setShowSearch] = useState(false);
@@ -175,6 +177,15 @@ export default function Navbar() {
           title="Profile Settings"
         >
           <UserCircle size={32} />
+        </button>
+
+        {/* Logout */}
+        <button 
+          onClick={logout}
+          className="text-slate-400 hover:text-red-400 transition-all duration-300 hover:scale-110 p-2 rounded-lg hover:bg-white/5"
+          title="Logout"
+        >
+          <LogOut size={24} />
         </button>
       </div>
 

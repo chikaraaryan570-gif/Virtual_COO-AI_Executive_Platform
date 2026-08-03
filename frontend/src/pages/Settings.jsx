@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { User, Bell, Shield, Key, Eye, Copy, RefreshCw } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useAuth } from "../context/AuthContext";
 
 export default function Settings() {
+  const { user } = useAuth();
   const [activeTab, setActiveTab] = useState("profile");
   const [apiKey, setApiKey] = useState("vcoo_live_8f3d9k2j1s9a7x6c5b4v3n2m1");
   const [showApiKey, setShowApiKey] = useState(false);
 
-  // Dynamic API Key generator
   const regenerateKey = () => {
     const chars = "abcdefghijklmnopqrstuvwxyz0123456789";
     let newKey = "vcoo_live_";
@@ -39,7 +40,6 @@ export default function Settings() {
       <div className="glass-panel border border-white/5 bg-white/[0.01] rounded-2xl overflow-hidden">
         <div className="flex flex-col md:flex-row">
           
-          {/* Sidebar Tabs */}
           <div className="w-full md:w-64 bg-slate-950/20 border-r border-white/5 p-6 space-y-2">
             <button 
               onClick={() => setActiveTab("profile")}
@@ -90,7 +90,6 @@ export default function Settings() {
             </button>
           </div>
 
-          {/* Dynamic Settings Content */}
           <div className="flex-1 p-8 min-h-[400px]">
             <AnimatePresence mode="wait">
               {activeTab === "profile" && (
@@ -103,25 +102,14 @@ export default function Settings() {
                 >
                   <h2 className="text-2xl font-bold text-white mb-6 tracking-tight">Profile Information</h2>
                   <form className="space-y-6">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      <div className="space-y-2">
-                        <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider">First Name</label>
-                        <input type="text" defaultValue="John" className="w-full bg-slate-950/50 border border-white/10 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 focus:shadow-[0_0_10px_rgba(6,182,212,0.2)] transition-all duration-300" />
-                      </div>
-                      <div className="space-y-2">
-                        <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider">Last Name</label>
-                        <input type="text" defaultValue="Doe" className="w-full bg-slate-950/50 border border-white/10 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 focus:shadow-[0_0_10px_rgba(6,182,212,0.2)] transition-all duration-300" />
-                      </div>
+                    <div className="space-y-2">
+                      <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider">Full Name</label>
+                      <input type="text" defaultValue={user?.name || ""} className="w-full bg-slate-950/50 border border-white/10 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 focus:shadow-[0_0_10px_rgba(6,182,212,0.2)] transition-all duration-300" />
                     </div>
 
                     <div className="space-y-2">
                       <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider">Email Address</label>
-                      <input type="email" defaultValue="john.doe@technova.com" className="w-full bg-slate-950/50 border border-white/10 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 focus:shadow-[0_0_10px_rgba(6,182,212,0.2)] transition-all duration-300" />
-                    </div>
-
-                    <div className="space-y-2">
-                      <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider">Role</label>
-                      <input type="text" defaultValue="Chief Operating Officer" disabled className="w-full bg-slate-950/30 border border-white/5 rounded-lg px-4 py-2.5 text-slate-500 cursor-not-allowed font-medium" />
+                      <input type="email" disabled defaultValue={user?.email || ""} className="w-full bg-slate-950/30 border border-white/5 rounded-lg px-4 py-2.5 text-slate-500 cursor-not-allowed font-medium" />
                     </div>
 
                     <div className="pt-6 border-t border-white/5 flex justify-end">

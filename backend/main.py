@@ -1,4 +1,7 @@
 import contextlib
+from dotenv import load_dotenv
+load_dotenv()
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -6,13 +9,11 @@ from routes.dashboard import router as dashboard_router
 from routes.chat import router as chat_router
 from routes.health_score import router as health_router
 from routes.company import router as company_router
-
-from database.init_db import init_db
-
+from routes.auth import router as auth_router
 
 @contextlib.asynccontextmanager
 async def lifespan(app: FastAPI):
-    init_db()
+    # init_db()
     yield
 
 
@@ -33,6 +34,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+app.include_router(auth_router)
 app.include_router(chat_router)
 app.include_router(health_router)
 app.include_router(company_router)
