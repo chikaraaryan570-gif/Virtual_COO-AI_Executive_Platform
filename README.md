@@ -2,6 +2,11 @@
 
 An AI-powered Executive Assistant designed to simulate the role of a Virtual Chief Operating Officer (COO). The platform provides intelligent business insights, executive dashboards, company health monitoring, and AI-generated reports for Finance, HR, Sales, and Operations.
 
+## 🌐 Live Demo
+
+- **Frontend (Vercel)**: [https://virtual-coo.vercel.app](https://virtual-coo.vercel.app)
+- **Backend API (Render)**: [https://virtual-coo-backend.onrender.com](https://virtual-coo-backend.onrender.com)
+
 ---
 
 ## 🚀 Features
