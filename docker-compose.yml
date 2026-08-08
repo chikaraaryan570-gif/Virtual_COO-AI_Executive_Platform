@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: virtual_coo_backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend/data:/app/data
+      - ./backend/reports:/app/reports
+    environment:
+      # Add necessary environment variables here or use env_file
+      - FIREBASE_CREDENTIALS_PATH=/app/firebase-credentials.json
+    env_file:
+      - ./backend/.env
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        # Note: In production, change this to your actual backend domain, e.g., https://api.yourdomain.com
+        - VITE_API_URL=http://localhost:8000
+    container_name: virtual_coo_frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    # We can pass env directly here for build if needed, though args is usually sufficient for Vite

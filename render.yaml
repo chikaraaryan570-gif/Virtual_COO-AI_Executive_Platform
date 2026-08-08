@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: virtual-coo-backend
+    env: docker
+    region: ohio
+    plan: free
+    dockerContext: ./backend
+    dockerfilePath: ./backend/Dockerfile
+    envVars:
+      - key: PORT
+        value: "8000"
+      - key: OPENAI_API_KEY
+        sync: false # Requires you to enter this manually in the Render Dashboard
+      - key: GROQ_API_KEY
+        sync: false # Requires you to enter this manually in the Render Dashboard
+      # Add any other secrets here
